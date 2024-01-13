@@ -2,12 +2,12 @@ from mrjob.job import MRJob
 
 class MRHotelRatingCount(MRJob):
     def mapper(self, _, line):
-        (userId, movieId, rating, _) = line.split(",")
+        (_, movieId, rating, _) = line.split(",")
 
         try:
             result = [movieId, float(rating)]
             yield result
-        except (ValueError, TypeError) as e:
+        except (ValueError, TypeError):
             pass
 
     def reducer(self, movie_id, ratings):
